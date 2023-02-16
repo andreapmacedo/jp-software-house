@@ -4,20 +4,22 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableNativeFeedback,
+  TouchableHighlight,
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
 
 import * as Animatable from 'react-native-animatable';
 
-// const screenHeight = Dimensions.get('window').height 
-// const screenWidth = Dimensions.get('window').width 
+interface Props {
 
-// const {height, width, scale, fontScale} = useWindowDimensions();
+}
 
-export default function Welcome() {
-  // const {height, width, scale, fontScale} = useWindowDimensions();
-  const navigation = useNavigation();
+// export default function Welcome() {
+const Welcome: React.FC<Props> = () =>{
+  
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>
@@ -26,27 +28,27 @@ export default function Welcome() {
           animation="flipInY"
           source={require('../../assets/logo.png')}
           style={{ width: 200, height: 200 }}
-          // style={{ width: '100%'}}
           resizeMode="contain" 
         />
       </View>
+
       <View style={styles.containerForm}>
-        <Text style={styles.title}>Welcome to the</Text>
-        <Text style={styles.text}>React Native</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            // onPress={() => navigation.navigate('SignIn')}
-            onPress={() => navigation.navigate('SignIn')}
-          >
-            Sign In
-          </Text>
-        </TouchableOpacity>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => navigation.navigate('SignIn')}
+          hasTVPreferredFocus
+          tvParallaxProperties={{ magnification: 1.5 }}
+        >
+          <Text style={styles.buttonText}>Button3</Text>
+        </TouchableHighlight>
+
       </View>
 
     </View>
   )
 }
+
+export default Welcome;
 
 const styles = StyleSheet.create({
   
