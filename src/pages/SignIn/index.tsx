@@ -8,6 +8,8 @@ export default function SignIn() {
     // <VStack flex={1} width={1080}>
     <View>
       <Text>SignIn</Text>
+      <Text>SignIn</Text>
+      <Text>SignIn</Text>
     </View>
     // </VStack>
   )
