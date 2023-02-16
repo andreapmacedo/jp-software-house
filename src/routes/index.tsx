@@ -1,24 +1,24 @@
+import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import Welcome from "../pages/Welcome";
 import SignIn from "../pages/SignIn";
-import React from 'react';
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Navigator>
+      <Screen
         name="Welcome"
         component={Welcome}
         options={{ headerShown: false }}
       />
-      <Stack.Screen 
+      <Screen 
         name="SignIn"
         component={SignIn}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+    </Navigator>
   );
 }
