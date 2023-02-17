@@ -14,7 +14,7 @@ interface IProps {
 
 const MainCard: React.FC<IProps> = ({movie}) =>{
   
-  console.log('movies: ', movie);
+  // console.log('movies: ', movie);
   
   return (
     <>

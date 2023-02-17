@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
+import { getGeneres, getPopularMovies } from '../../services/apiMovies';
 import CardContainer from '../../components/CardContainer';
+import GenresContainer from '../../components/GenresContainer';
 import { 
   View,
   StyleSheet,
@@ -21,12 +22,24 @@ const MainScreen: React.FC<IProps> = () =>{
   
   const navigation = useNavigation<any>();
 
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [movies, setMovies] = useState([]);
+  // const [selectedMovie, setSelectedMovie] = useState(null);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
 
-  const setPopularMovies = async () => {
-    const movies = await getPopularMovies();
-    setMovies(movies);
+  const fetchPopularMovies = async () => {
+    const data = await getPopularMovies();
+    const popularMovies = data.results;
+    // console.log('popularMovies: ', popularMovies);
+    setPopularMovies(popularMovies);
+  }
+
+  const fetchGeneres = async () => {
+    const data = await getGeneres();
+    const genres = data.genres;
+    // console.log('generes: ', genres);
+    
+    setGenres(genres);
   }
 
   const HashChangeEvent = () => {
@@ -45,15 +58,26 @@ const MainScreen: React.FC<IProps> = () =>{
   }
 
   useEffect(() => {
-    setPopularMovies();
+    fetchPopularMovies();
+    fetchGeneres();
   }, [])
 
 
   return (
     <View style={styles.container}>
+    
+      {/* {genres?.map(({name}, index) => { */}
+      {/* {genres?.map((genre, index) => {
+        return(
+          <Text key={index}>{genre.name}</Text>
+          // <GenresContainer key={index} genre={genre}/>
+        )
+      })
+      } */}
 
-      
-      < CardContainer movies={movies}/>
+
+      <GenresContainer genres={genres}/>
+      {/* <CardContainer movies={popularMovies}/> */}
 
 
 
