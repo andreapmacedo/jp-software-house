@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
+import CardContainer from '../../components/CardContainer';
 import { 
   View,
   StyleSheet,
@@ -30,15 +31,17 @@ const MainScreen: React.FC<IProps> = () =>{
 
   const HashChangeEvent = () => {
     // console.log('teste');
-    
-    
     // console.log(movies.results);
-    movies.results.map((movie, index) => {
-      console.log('filme: ', index);
-      // console.log(movie);
-      console.log(movie['title']);
-      console.log('-----------------');
-    })    
+    
+    
+    // movies.results.map((movie, index) => {
+    //   console.log('filme: ', index);
+    //   // console.log(movie);
+    //   console.log(movie['title']);
+    //   console.log('-----------------');
+    // })    
+
+
   }
 
   useEffect(() => {
@@ -48,29 +51,11 @@ const MainScreen: React.FC<IProps> = () =>{
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerLogo} >
-        {/* <Animatable.Image
-          animation="flipInY"
-          source={require('../../assets/logo.png')}
-          style={{ width: 200, height: 200 }}
-          resizeMode="contain" 
-        /> */}
+
+      
+      < CardContainer movies={movies}/>
 
 
-
-      </View>
-
-      <View style={styles.containerForm}>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={HashChangeEvent}
-          hasTVPreferredFocus
-          tvParallaxProperties={{ magnification: 1.5 }}
-        >
-          <Text style={styles.buttonText}>Teste</Text>
-        </TouchableHighlight>
-
-      </View>
 
     </View>
   )

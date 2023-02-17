@@ -20,8 +20,8 @@ export default function SignIn() {
   const inputRef = useRef(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [movies, setMovies] = useState([]);
+  // const [selectedMovie, setSelectedMovie] = useState(null);
 
 
   const handleLogin = async () => {        
@@ -32,12 +32,7 @@ export default function SignIn() {
     //   // TODO: Implementar um focu no input com estilo de erro 
     // }
 
-    navigation.navigate('MainScreen')
-    // console.log(selectedMovie);
-    // console.log(await getPopularMovies());
-    
-    // console.log(await getMovieById(550));
-          
+    navigation.navigate('MainScreen')          
   }  
 
   const handleFocus = () => {
@@ -50,17 +45,11 @@ export default function SignIn() {
     inputRef.current.blur();
   };
 
-  const handleGetMovie = async () => {
-    // const movie = await getMovieById('tt0076759');
-    const movie = await getMovieById(550);
-    setSelectedMovie(movie);
-  }
-
-  // const useEffect = () => {
-  //   handleGetMovie();
+  // const handleGetMovie = async () => {
+  //   // const movie = await getMovieById('tt0076759');
+  //   const movie = await getMovieById(550);
+  //   setSelectedMovie(movie);
   // }
-
-
 
   return (
     
