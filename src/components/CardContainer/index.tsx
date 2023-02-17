@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
 import MainCard from '../MainCard';
-import { 
+import {
+  SafeAreaView,
+  ScrollView, 
   View,
   StyleSheet,
   Text,
@@ -15,8 +17,9 @@ const CardContainer: React.FC<IProps> = ({movies}) =>{
 
   console.log('movies: ', movies);
 
-  const [focused, setFocused] = useState(false);
+  
   const inputRef = useRef(null);
+  const [focused, setFocused] = useState(false);
 
   const handleFocus = () => {
     setFocused(true);
@@ -26,27 +29,51 @@ const CardContainer: React.FC<IProps> = ({movies}) =>{
   const handleBlur = () => {
     setFocused(false);
     inputRef.current.blur();
+    console.log(inputRef.current);
+    
+    
   };
 
 
   return (
-    <View style={styles.container}>
-      
-      { movies.results?.map((movie, index) => { 
-        return(
-          <View key={index}>
-          <TouchableHighlight
-            onPress={handleFocus}
-            // onBlur={handleBlur}
-            style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-          >
-            <MainCard movie={movie}/>
-          </TouchableHighlight>
-          </View>
-        )
-      })}
-
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        { movies.results?.map((movie, index) => { 
+          return(
+            <TouchableHighlight
+              onPress={handleFocus}
+              onBlur={handleBlur}
+              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+              >
+              <View
+                key={index}
+                ref={inputRef}
+                >
+                <MainCard movie={movie} />
+              </View>
+            </TouchableHighlight>
+          )
+          // return(
+          //   <View key={index}>
+          //   <TouchableHighlight
+          //     onPress={handleFocus}
+          //     // onBlur={handleBlur}
+          //     style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+          //   >
+              
+          //     {/* <MainCard movie={movie} /> */}
+          //     <View
+          //       // onBlur={handleBlur}
+          //       ref={inputRef}
+          //     >
+          //       <MainCard movie={movie} />
+          //     </View>
+          //   </TouchableHighlight>
+          //   </View>
+          // )
+        })}
+      </ScrollView>
+    </SafeAreaView>
   )  
 }
 
@@ -67,6 +94,10 @@ const styles = StyleSheet.create({
   },
   wrapperFocused: {
     borderColor: 'blue',
+  },
+  scrollView: {
+    backgroundColor: 'pink',
+    marginHorizontal: 20,
   },
 });
 

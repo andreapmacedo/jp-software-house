@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
 import { 
   View,
   Text,
@@ -16,13 +15,10 @@ export default function SignIn() {
 
   const navigation = useNavigation<any>();
 
-  const [focused, setFocused] = useState(false);
   const inputRef = useRef(null);
+  const [focused, setFocused] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [movies, setMovies] = useState([]);
-  // const [selectedMovie, setSelectedMovie] = useState(null);
-
 
   const handleLogin = async () => {        
     
@@ -45,12 +41,6 @@ export default function SignIn() {
     inputRef.current.blur();
   };
 
-  // const handleGetMovie = async () => {
-  //   // const movie = await getMovieById('tt0076759');
-  //   const movie = await getMovieById(550);
-  //   setSelectedMovie(movie);
-  // }
-
   return (
     
     <View style={styles.container}>
@@ -67,7 +57,6 @@ export default function SignIn() {
         delay={500}
         style={styles.containerForm}
       >
-
         <TouchableHighlight
           onPress={handleFocus}
           // onBlur={handleBlur}
@@ -101,13 +90,10 @@ export default function SignIn() {
            />
         </TouchableHighlight>
 
-
-
         <TouchableHighlight
           style={styles.buttonRegister}
           onPress={handleLogin}  
         >
-
           <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
         </TouchableHighlight>
 
