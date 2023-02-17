@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react'
 import { 
   View,
   StyleSheet,
@@ -14,9 +14,12 @@ interface IProps {
 
 }
 
-const Welcome: React.FC<IProps> = () =>{
+// export default function Welcome() {
+const MainScreen: React.FC<IProps> = () =>{
   
   const navigation = useNavigation<any>();
+
+  const  [movies, setMovies] = useState([]);
 
   return (
     <View style={styles.container}>
@@ -36,7 +39,7 @@ const Welcome: React.FC<IProps> = () =>{
           hasTVPreferredFocus
           tvParallaxProperties={{ magnification: 1.5 }}
         >
-          <Text style={styles.buttonText}>Button3</Text>
+          <Text style={styles.buttonText}>Button3df</Text>
         </TouchableHighlight>
 
       </View>
@@ -45,7 +48,7 @@ const Welcome: React.FC<IProps> = () =>{
   )
 }
 
-export default Welcome;
+export default MainScreen;
 
 const styles = StyleSheet.create({
   

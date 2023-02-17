@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { View,
-    Text,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    TouchableHighlight,
+import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
+import { 
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableHighlight,
 } from 'react-native'
 
 import * as Animatable from 'react-native-animatable';
@@ -17,16 +18,27 @@ export default function SignIn() {
 
   const [focused, setFocused] = useState(false);
   const inputRef = useRef(null);
-  const [value, setValue] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const handleClick = () => {
-    inputRef.current.focus();
-  };
-  
-  const handleChange = (text) => {
-    setValue(text);
-  };
 
+  const handleLogin = async () => {        
+    
+    // if (email === '' || password === '') {
+    //   // return alert('Preencha todos os campos'); 
+    //   return;
+    //   // TODO: Implementar um focu no input com estilo de erro 
+    // }
+
+    // navigation.navigate('MainScreen')
+    // console.log(selectedMovie);
+    // console.log(await getPopularMovies());
+    
+    console.log(await getMovieById(550));
+          
+  }  
 
   const handleFocus = () => {
     setFocused(true);
@@ -37,6 +49,16 @@ export default function SignIn() {
     setFocused(false);
     inputRef.current.blur();
   };
+
+  const handleGetMovie = async () => {
+    // const movie = await getMovieById('tt0076759');
+    const movie = await getMovieById(550);
+    setSelectedMovie(movie);
+  }
+
+  const useEffect = () => {
+    handleGetMovie();
+  }
 
 
 
@@ -65,11 +87,28 @@ export default function SignIn() {
           <TextInput        
             onBlur={handleBlur}
             ref={inputRef}
+            placeholder="Digite seu e-mail"
+            style={styles.input}
+            // value={value}
+            value={email}
+            onChangeText={setEmail}
+           />
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          onPress={handleFocus}
+          // onBlur={handleBlur}
+          style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+        >
+          <TextInput        
+            onBlur={handleBlur}
+            ref={inputRef}
             placeholder="Sua senha"
             style={styles.input}
-            value={value}
-            onChangeText={handleChange}
-
+            // value={value}
+            value={password}
+            secureTextEntry={true}
+            onChangeText={setPassword}
            />
         </TouchableHighlight>
 
@@ -77,11 +116,7 @@ export default function SignIn() {
 
         <TouchableHighlight
           style={styles.buttonRegister}
-          // ref={ref_button2}
-          // hasTVPreferredFocus
-          // tvParallaxProperties={{ magnification: 1.5 }}
-          onPress={() => navigation.navigate('Welcome')}
-          
+          onPress={handleLogin}  
         >
 
           <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
