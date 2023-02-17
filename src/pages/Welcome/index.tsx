@@ -12,12 +12,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import * as Animatable from 'react-native-animatable';
 
-interface Props {
+interface IProps {
 
 }
 
 // export default function Welcome() {
-const Welcome: React.FC<Props> = () =>{
+const Welcome: React.FC<IProps> = () =>{
   
   const navigation = useNavigation<any>();
 
