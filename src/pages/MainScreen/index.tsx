@@ -1,4 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
+import CardContainer from '../../components/CardContainer';
 import { 
   View,
   StyleSheet,
@@ -19,30 +21,41 @@ const MainScreen: React.FC<IProps> = () =>{
   
   const navigation = useNavigation<any>();
 
-  const  [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const setPopularMovies = async () => {
+    const movies = await getPopularMovies();
+    setMovies(movies);
+  }
+
+  const HashChangeEvent = () => {
+    // console.log('teste');
+    // console.log(movies.results);
+    
+    
+    // movies.results.map((movie, index) => {
+    //   console.log('filme: ', index);
+    //   // console.log(movie);
+    //   console.log(movie['title']);
+    //   console.log('-----------------');
+    // })    
+
+
+  }
+
+  useEffect(() => {
+    setPopularMovies();
+  }, [])
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerLogo} >
-        <Animatable.Image
-          animation="flipInY"
-          source={require('../../assets/logo.png')}
-          style={{ width: 200, height: 200 }}
-          resizeMode="contain" 
-        />
-      </View>
 
-      <View style={styles.containerForm}>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => navigation.navigate('SignIn')}
-          hasTVPreferredFocus
-          tvParallaxProperties={{ magnification: 1.5 }}
-        >
-          <Text style={styles.buttonText}>Button3df</Text>
-        </TouchableHighlight>
+      
+      < CardContainer movies={movies}/>
 
-      </View>
+
 
     </View>
   )
