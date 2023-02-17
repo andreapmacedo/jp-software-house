@@ -9,8 +9,7 @@
 
 import axios from 'axios';
 
-const apiKey = ''
-const apiKeyE = process.env.API_KEY;
+const apiKey = 'fb34530271b349314af0de263d16ab5a'
 
 const baseURL = 'https://api.themoviedb.org/3';
 
@@ -18,14 +17,12 @@ export interface IToken {
   request_token: string;
 }
 
-export async function getMovieById(movieId: number) {
-  console.log(apiKeyE);
-  console.log('teste');
+export async function getMovieById(movieId: number) { 
   
-  // const response = await axios.get(`${baseURL}/movie/${movieId}`, {
-  //   params: { api_key: apiKey },
-  // });
-  // return response.data;
+  const response = await axios.get(`${baseURL}/movie/${movieId}`, {
+    params: { api_key: apiKey },
+  });
+  return response.data;
 }
 
 export async function getPopularMovies() {

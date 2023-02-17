@@ -32,11 +32,11 @@ export default function SignIn() {
     //   // TODO: Implementar um focu no input com estilo de erro 
     // }
 
-    // navigation.navigate('MainScreen')
+    navigation.navigate('MainScreen')
     // console.log(selectedMovie);
     // console.log(await getPopularMovies());
     
-    console.log(await getMovieById(550));
+    // console.log(await getMovieById(550));
           
   }  
 
@@ -56,9 +56,9 @@ export default function SignIn() {
     setSelectedMovie(movie);
   }
 
-  const useEffect = () => {
-    handleGetMovie();
-  }
+  // const useEffect = () => {
+  //   handleGetMovie();
+  // }
 
 
 
