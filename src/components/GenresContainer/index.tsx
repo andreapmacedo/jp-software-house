@@ -41,14 +41,10 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
 
   return (
     <>
-    
-     {/* <SafeAreaView style={styles.container}> */}
      <ScrollView
         style={styles.scrollView}
         horizontal={true}
       >
-        
-        {/* { movies?.map(({title}, index) => {  */}
         { movies?.map((movie, index) => { 
           return(
             <TouchableHighlight
@@ -66,7 +62,6 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
           )
         })}
       </ScrollView>
-    {/* </SafeAreaView> */}
     </>
   )  
   // return (
@@ -105,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
-    backgroundColor: 'pink',
+    backgroundColor: 'purple',
   },
   wrapper: {
     backgroundColor: 'white',
@@ -122,7 +117,7 @@ const styles = StyleSheet.create({
     // display: 'flex',
     // flex: 2,
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: 'green',
     marginHorizontal: 20,
   },
   cardContainer: {

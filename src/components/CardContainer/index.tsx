@@ -31,8 +31,9 @@ const CardContainer: React.FC<IProps> = ({movies}) =>{
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    // <SafeAreaView style={styles.container}>
+    <>
+      {/* <ScrollView style={styles.scrollView}> */}
         {/* { movies.results?.map((movie, index) => {  */}
         { movies?.map((movie, index) => { 
           return(
@@ -68,8 +69,9 @@ const CardContainer: React.FC<IProps> = ({movies}) =>{
           //   </View>
           // )
         })}
-      </ScrollView>
-    </SafeAreaView>
+      {/* </ScrollView> */}
+    {/* </SafeAreaView> */}
+    </>
   )  
 }
 
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
   },
   scrollView: {
-    backgroundColor: 'pink',
+    backgroundColor: 'green',
     marginHorizontal: 20,
   },
 });
