@@ -27,6 +27,8 @@ const Welcome: React.FC<IProps> = () =>{
 
   return (
     <View style={styles.container}>
+      
+
       <View style={styles.containerLogo} >
         <Animatable.Image
           animation="flipInY"
@@ -34,8 +36,13 @@ const Welcome: React.FC<IProps> = () =>{
           style={{ width: 200, height: 200 }}
           resizeMode="contain" 
         />
+        <Animatable.Text
+          animation="fadeInUp"
+          style={styles.title}
+          >
+            SOFTWARE HOUSE
+        </Animatable.Text>
       </View>
-
       <View >
         <TouchableHighlight
           style={styles.buttonRegister}
@@ -66,6 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#ededed',
     textDecorationLine: 'underline',
+  },
+  title: {
+    fontSize: 30,
+    color: '#ededed',
+    // textDecorationLine: 'underline',
   },
   buttonRegister: {
     padding: 8,
