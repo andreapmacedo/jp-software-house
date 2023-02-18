@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 import { 
   View,
   Text,
@@ -7,14 +9,9 @@ import {
   TouchableHighlight,
 } from 'react-native'
 
-import * as Animatable from 'react-native-animatable';
-
-import { useNavigation } from '@react-navigation/native';
-
 export default function SignIn() {
 
   const navigation = useNavigation<any>();
-
   const inputRef = useRef(null);
   const [focused, setFocused] = useState(false);
   const [email, setEmail] = useState('');
@@ -22,10 +19,13 @@ export default function SignIn() {
 
   const handleLogin = async () => {        
     
+    // Validação de campos dispensada por motivo prático
     // if (email === '' || password === '') {
-    //   // return alert('Preencha todos os campos'); 
-    //   return;
-    //   // TODO: Implementar um focu no input com estilo de erro 
+    //   return alert('Preencha todos os campos'); 
+    // }
+    // const emailRegex = /\S+@\S+\.\S+/;
+    // if (!emailRegex.test(email)) {
+    //   //   return alert('Por favor, digite um email válido.'); 
     // }
 
     navigation.navigate('MainScreen')          
@@ -48,16 +48,21 @@ export default function SignIn() {
         delay={500}
         style={styles.containerHeader}
       >
-        <Text>Bem-vindo(a)</Text>
+        <View >
+          <Animatable.Image
+            // animation="flipInY"
+            source={require('../../assets/capa-2.png')}
+            style={styles.capa}
+            // resizeMode="contain" 
+          />
+        </View>
       </Animatable.View>
-
       <Animatable.View 
         animation="fadeInUp"
         delay={500}
         style={styles.containerForm}
       >
-        {/* <View style={styles.loginContainer}> */}
-        
+        <View style={styles.loginContainer}>
           <TouchableHighlight
             onPress={handleFocus}
             style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
@@ -73,7 +78,7 @@ export default function SignIn() {
               onChangeText={setEmail}
             />
           </TouchableHighlight>
-
+          
           <TouchableHighlight
             onPress={handleFocus}
             style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
@@ -82,7 +87,7 @@ export default function SignIn() {
             <TextInput        
               onBlur={handleBlur}
               ref={inputRef}
-              placeholder="Sua senha"
+              placeholder="Digite sua senha"
               style={styles.input}
               placeholderTextColor="#cacaca"
               value={password}
@@ -98,7 +103,7 @@ export default function SignIn() {
           >
             <Text style={styles.buttonRegisterText}>Entrar</Text>
           </TouchableHighlight>
-        {/* </View> */}
+        </View>
       </Animatable.View>
     </View>
   )
@@ -111,31 +116,44 @@ const styles = StyleSheet.create({
     color: '#d1d1d1',
     underlayColor: 'blue',
   },
+  capa:{
+    width: 1080,
+    height: 300,
+  },
   containerHeader: {
     flex: 1,
     justifyContent: 'center',
+    position : 'absolute',
     alignItems: 'center',
     color: '#d1d1d1',
+    backgroundColor: 'white',
+    width: '100%',
   },
   containerForm: {
     flex: 1,
+    position : 'absolute',
+    width: '100%',
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
     color: '#d1d1d1',
+    
   },
   loginContainer: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'rgb(23, 41, 60)',
     alignItems: 'center',
     color: '#d1d1d1',
-    width: '60%',
-    borderWidth: 1,
+    width: '100%',
+    
     overflow: 'hidden',
+    padding: 16,
   },
   input: {
     height: 50,
     color: '#fff',
-    fontSize: 20,
+    fontSize: 15,
     borderRadius: 5,
     borderBottomWidth: 1,
     borderWidth: 1,
@@ -149,15 +167,11 @@ const styles = StyleSheet.create({
   },
   buttonRegister: {
     padding: 8,
-    margin: 48,
     borderColor: 'green',
     color: 'red',
-    // borderWidth: 1,
     borderRadius: 50,
-    // paddingVertical: 8,
     width: '50%',
     alignSelf: 'center',
-    bottom: '12%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -171,7 +185,6 @@ const styles = StyleSheet.create({
     marginBottom: 26,
     color: '#efefef',
     borderRadius: 8,
-
   },
   wrapperFocused: {
     borderColor: 'green',

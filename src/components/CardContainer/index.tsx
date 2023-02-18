@@ -9,7 +9,7 @@ import {
 interface IProps {
 
 }
-
+// Este componente não está sendo usado no projeto.
 const CardContainer: React.FC<IProps> = ({movies}) =>{
 
   const inputRef = useRef(null);
