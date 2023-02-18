@@ -15,14 +15,20 @@ const MainCard: React.FC<IProps> = ({movie}) =>{
     
   return (
     <>
-      <Text style={{color: 'red'}}>{movie['title']}</Text>
       <Animatable.Image
         source={{ uri: `https://image.tmdb.org/t/p/w500${movie['poster_path']}` }}
         style={{ width: 200, height: 200 }}
         resizeMode="contain"
       />
+      <Text style={styles.title}>{movie['title']}</Text>
     </>
   )  
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 10,
+  },
+});  
 
 export default MainCard;
