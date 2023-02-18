@@ -41,6 +41,17 @@ export default function SignIn() {
     inputRef.current.blur();
   };
 
+  const touchProps = {
+    activeOpacity: 1,
+    underlayColor: 'blue',
+    style: isPress ? styles.wrapperFocused : styles.wrapper,
+    onHideUnderlay: () => setIsPress(false),
+    onShowUnderlay: () => setIsPress(true),
+    onPress: () => setIsPress(false),
+    // onBlur: () => setIsPress(true)
+  };
+
+
   return (
     
     <View style={styles.container}>
@@ -106,51 +117,55 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgb(23, 41, 60)',
-    color: 'white',
+    color: '#ededed',
   },
   containerHeader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    color: '#ededed',
   },
   containerForm: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    color: '#ededed',
   },
   input: {
     // width: '90%',
     height: 50,
     backgroundColor: 'transparent',
+    color: '#ededed',
+    fontSize: 20,
     borderRadius: 10,
-    marginBottom: 10,
-    padding: 10,
+    // marginBottom: 10,
+    // padding: 10,
   },
   button: {
     // width: '90%',
     height: 50,
-    backgroundColor: '#fff',
+    backgroundColor: '#ededed',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
     fontSize: 20,
-    color: 'black',
+    color: '#ededed',
   },
   registerText: {
     fontSize: 20,
-    color: 'black',
+    color: '#ededed',
   },
   buttonRegister: {
     // position: 'absolute',
     // backgroundColor: 'red',
     borderColor: 'red',
     color: 'red',
-    borderWidth: 1,
-    borderRadius: 50,
+    // borderWidth: 1,
+    // borderRadius: 50,
     paddingVertical: 8,
-    width: '60%',
+    width: '50%',
     alignSelf: 'center',
     // bottom: '15%',
     alignItems: 'center',
@@ -158,19 +173,21 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 20,
-    color: 'black',
+    color: '#ededed',
   },
   wrapper: {
     backgroundColor: 'transparent',
     padding: 10,
     borderRadius: 5,
-    borderWidth: 1,
+    // borderWidth: 1,
+    borderBottomWidth: 2, // adiciona borda inferior
     borderColor: 'yellow',
     width: '50%',
     marginBottom: 16,
-    
+    color: '#ededed', 
   },
   wrapperFocused: {
     borderColor: 'green',
+    color: '#ededed',
   },
 });

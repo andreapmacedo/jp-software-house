@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     width: 200,
   },
   wrapperFocused: {
-    
     flex : 1,
     alignItems: 'center',
     justifyContent: 'center',
