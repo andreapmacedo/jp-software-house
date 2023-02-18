@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import GenresContainer from '../../components/GenresContainer';
 import { 
@@ -7,8 +7,6 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native'
-
-import * as Animatable from 'react-native-animatable';
 
 interface Genre {
   id: number;
@@ -88,7 +86,11 @@ const MainScreen: React.FC<IProps> = () =>{
                 key={index}
                 style={styles.sectionContainer}
               >
-                <Text>{filtered.genre}</Text>
+                <Text
+                  style={styles.title}
+                >
+                  {filtered.genre}
+                </Text>
                 <GenresContainer data={filtered}/>
               </View>
             )
@@ -109,13 +111,23 @@ const styles = StyleSheet.create({
   },
   vScrollView: {
     flex: 1,
-    backgroundColor: 'purple',
+    // backgroundColor: 'purple',
+    backgroundColor: 'rgb(23, 41, 60)',
     
     // marginHorizontal: 20,
   },
   sectionContainer: {
     marginTop: 32,
-    paddingHorizontal: 24,
-    backgroundColor: 'aqua',
+    color: 'white',
+    // paddingHorizontal: 24,
+    // backgroundColor: 'aqua',
+    // backgroundColor: 'rgb(23, 41, 60)',
   },
+  title: {
+    fontSize: 30,
+    color: '#fff',
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginBottom: 10,
+  },  
 });
