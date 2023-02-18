@@ -16,7 +16,6 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
   const { genre, movies } = data;
   const ref = useRef(null);
   const [focused, setFocused] = useState(false);
-  const [presed, setPresed] = useState(false);
   const [ isPress, setIsPress ] = useState(false);
    
 

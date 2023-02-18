@@ -41,19 +41,7 @@ export default function SignIn() {
     inputRef.current.blur();
   };
 
-  const touchProps = {
-    activeOpacity: 1,
-    underlayColor: 'blue',
-    style: isPress ? styles.wrapperFocused : styles.wrapper,
-    onHideUnderlay: () => setIsPress(false),
-    onShowUnderlay: () => setIsPress(true),
-    onPress: () => setIsPress(false),
-    // onBlur: () => setIsPress(true)
-  };
-
-
   return (
-    
     <View style={styles.container}>
       <Animatable.View 
         animation="fadeInLeft"
@@ -70,15 +58,15 @@ export default function SignIn() {
       >
         <TouchableHighlight
           onPress={handleFocus}
-          // onBlur={handleBlur}
           style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+          underlayColor={'rgba(29, 70, 114, 0.836)'}
         >
           <TextInput        
             onBlur={handleBlur}
             ref={inputRef}
             placeholder="Digite seu e-mail"
+            placeholderTextColor="#cacaca"
             style={styles.input}
-            // value={value}
             value={email}
             onChangeText={setEmail}
            />
@@ -86,15 +74,15 @@ export default function SignIn() {
 
         <TouchableHighlight
           onPress={handleFocus}
-          // onBlur={handleBlur}
           style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+          underlayColor={'rgba(29, 70, 114, 0.836)'}
         >
           <TextInput        
             onBlur={handleBlur}
             ref={inputRef}
             placeholder="Sua senha"
             style={styles.input}
-            // value={value}
+            placeholderTextColor="#cacaca"
             value={password}
             secureTextEntry={true}
             onChangeText={setPassword}
@@ -103,7 +91,8 @@ export default function SignIn() {
 
         <TouchableHighlight
           style={styles.buttonRegister}
-          onPress={handleLogin}  
+          onPress={handleLogin}
+          underlayColor={'rgba(29, 70, 114, 0.836)'}  
         >
           <Text style={styles.registerText}>Entrar</Text>
         </TouchableHighlight>
@@ -117,29 +106,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgb(23, 41, 60)',
-    color: '#ededed',
+    color: '#d1d1d1',
+    underlayColor: 'blue',
   },
   containerHeader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#ededed',
+    color: '#d1d1d1',
   },
   containerForm: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#ededed',
+    color: '#d1d1d1',
   },
   input: {
-    // width: '90%',
     height: 50,
-    backgroundColor: 'transparent',
-    color: '#ededed',
+    color: '#fff',
     fontSize: 20,
-    borderRadius: 10,
-    // marginBottom: 10,
-    // padding: 10,
   },
   button: {
     // width: '90%',
@@ -148,46 +133,48 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 10,
   },
   buttonText: {
     fontSize: 20,
-    color: '#ededed',
+    color: '#d1d1d1',
   },
   registerText: {
     fontSize: 20,
     color: '#ededed',
   },
   buttonRegister: {
-    // position: 'absolute',
-    // backgroundColor: 'red',
-    borderColor: 'red',
+    padding: 8,
+    margin: 48,
+    
+    borderColor: 'green',
     color: 'red',
     // borderWidth: 1,
-    // borderRadius: 50,
-    paddingVertical: 8,
+    borderRadius: 50,
+    // paddingVertical: 8,
     width: '50%',
     alignSelf: 'center',
-    // bottom: '15%',
+    bottom: '12%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   message: {
     fontSize: 20,
-    color: '#ededed',
+    color: '#d1d1d1',
   },
   wrapper: {
     backgroundColor: 'transparent',
     padding: 10,
-    borderRadius: 5,
-    // borderWidth: 1,
-    borderBottomWidth: 2, // adiciona borda inferior
-    borderColor: 'yellow',
+    borderBottomWidth: 1, // adiciona borda inferior
+    fontSize: 20,
+    borderColor: '#cacaca',
     width: '50%',
-    marginBottom: 16,
-    color: '#ededed', 
+    marginBottom: 26,
+    color: '#efefef',
+
   },
   wrapperFocused: {
     borderColor: 'green',
-    color: '#ededed',
+    color: '#fff',
   },
 });
