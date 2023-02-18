@@ -40,8 +40,10 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <>
+    
+     <SafeAreaView style={styles.container}>
+    
         
         {/* { movies?.map(({title}, index) => {  */}
         { movies?.map((movie, index) => { 
@@ -52,7 +54,7 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
               style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
               key={index}
               >
-              <View style={ styles.card }
+              <View style={ styles.cardContainer }
                 ref={inputRef}
                 >
                 <MainCard movie={movie} />
@@ -60,8 +62,9 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
             </TouchableHighlight>
           )
         })}
-      </ScrollView>
+    
     </SafeAreaView>
+    </>
   )  
   // return (
   //   <SafeAreaView style={styles.container}>
@@ -96,7 +99,9 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
   wrapper: {
     backgroundColor: 'white',
@@ -110,35 +115,24 @@ const styles = StyleSheet.create({
 
   },
   scrollView: {
-    display: 'flex',
-    flex: 2,
+    // display: 'flex',
+    // flex: 2,
+    flex: 1,
     backgroundColor: 'pink',
     marginHorizontal: 20,
   },
-  card: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
+  cardContainer: {
+    backgroundColor: 'yellow',
+    width: 220,
+    borderRadius: 8,
+    elevation: 3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: '#333',
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    marginHorizontal: 4,
+    marginVertical: 6,
     padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'grey',
-    marginBottom: 10,
-  },
-  touchable: {
-    display: 'flex',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'grey',
-    marginBottom: 10,
   },
 });
 

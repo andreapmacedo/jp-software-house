@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import CardContainer from '../../components/CardContainer';
 import GenresContainer from '../../components/GenresContainer';
-import { 
+import {
+  SafeAreaView, 
   View,
   StyleSheet,
-  Text,
+  ScrollView,
+  TouchableHighlight
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
@@ -37,6 +39,21 @@ const MainScreen: React.FC<IProps> = () =>{
   const [popularMovies, setPopularMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const inputRef = useRef(null);
+  const [focused, setFocused] = useState(false);
+
+  const handleFocus = () => {
+    setFocused(true);
+    inputRef.current.focus();
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+    inputRef.current.blur();
+    // console.log(inputRef.current);    
+  };
+
   
   function separateMoviesByGenre(movies: Movie[], genres: Genre[]): MoviesByGenre {
     // Cria um objeto vazio para armazenar os filmes por gênero
@@ -111,23 +128,37 @@ const MainScreen: React.FC<IProps> = () =>{
   // }, [genres])
 
   return (
-    <View style={styles.container}>
-    
-      {
-        filteredMovies?.map((filtered, index) => {        
-          return(
-            <GenresContainer key={index} data={filtered}/>
-          )
-          // return(
-          //   <>
-          //     <Text key={index}>{filtered.genre}</Text>
-          //     {/* <Text key={index}>{filtered.movies}</Text> */}
-          //   </>
-          //   // <GenresContainer key={index} genre={genre}/>
-          // )
-        })
-      }
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {
+          filteredMovies?.map((filtered, index) => {
+            return(
+            <TouchableHighlight
+              onPress={handleFocus}
+              onBlur={handleBlur}
+              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+              key={index}
+            >
+                {/* <View style={ styles.card } */}
+                <View 
+                  ref={inputRef}
+                >
+                  <GenresContainer key={index} data={filtered}/>
+              </View>
+
+            </TouchableHighlight>
+            )
+            // return(
+            //   <>
+            //     <Text key={index}>{filtered.genre}</Text>
+            //     {/* <Text key={index}>{filtered.movies}</Text> */}
+            //   </>
+            //   // <GenresContainer key={index} genre={genre}/>
+            // )
+          })
+        }
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -137,46 +168,23 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
-  containerLogo: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'darkblue',
-  },
-  containerForm: {
+  scrollView: {
     flex: 1,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    backgroundColor: 'pink',
+    marginHorizontal: 20,
   },
-  title: {
-    fontWeight: 'bold',
-    marginTop: 28,
+  wrapper: {
     backgroundColor: 'white',
-    marginBottom: 12,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'grey',
   },
-  text: {
-    fontWeight: 'bold',
-    marginTop: 28,
-    backgroundColor: 'white',
-    marginBottom: 12,
-  },
-  buttonText: {
-    backgroundColor: 'white',
-  },
-  button: {
-    position: 'absolute',
-    backgroundColor: 'red',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+  wrapperFocused: {
+    borderColor: 'blue',
   },
 });
