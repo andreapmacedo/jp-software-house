@@ -1,63 +1,164 @@
-import React, { useState, useEffect } from 'react'
-import { getMovieById, getPopularMovies } from '../../services/apiFilmes';
+import React, { useState, useEffect, useRef } from 'react'
+import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import CardContainer from '../../components/CardContainer';
-import { 
+import GenresContainer from '../../components/GenresContainer';
+import {
+  SafeAreaView, 
   View,
   StyleSheet,
-  Text,
-  TouchableHighlight,
+  ScrollView,
+  TouchableHighlight
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
 
 import * as Animatable from 'react-native-animatable';
 
+interface Genre {
+  id: number;
+  name: string;
+}
+
+interface Movie {
+  id: number;
+  title: string;
+  genre_ids: number[];
+}
+
+interface MoviesByGenre {
+  [genre: string]: Movie[];
+}
+
 interface IProps {
 
 }
 
-// export default function Welcome() {
 const MainScreen: React.FC<IProps> = () =>{
   
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<any>();  
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const inputRef = useRef(null);
+  const [focused, setFocused] = useState(false);
 
-  const setPopularMovies = async () => {
-    const movies = await getPopularMovies();
-    setMovies(movies);
+  const handleFocus = () => {
+    setFocused(true);
+    inputRef.current.focus();
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+    inputRef.current.blur();
+    // console.log(inputRef.current);    
+  };
+
+  
+  function separateMoviesByGenre(movies: Movie[], genres: Genre[]): MoviesByGenre {
+    // Cria um objeto vazio para armazenar os filmes por gênero
+    const moviesByGenre: MoviesByGenre = {};
+  
+    // Inicializa as listas de filmes por gênero
+    genres.forEach((genre) => {
+      moviesByGenre[genre.name] = [];
+    });
+  
+    // Itera sobre a lista de filmes populares
+    movies.reduce((acc, movie) => {
+      // Itera sobre os gêneros do filme e adiciona o filme à lista correspondente
+      movie.genre_ids.forEach((genreId) => {
+        const genre = genres.find((g) => g.id === genreId);
+        if (genre) {
+          moviesByGenre[genre.name].push(movie);
+        }
+      });
+      return acc;
+    }, {});
+
+    return moviesByGenre;
   }
 
-  const HashChangeEvent = () => {
-    // console.log('teste');
-    // console.log(movies.results);
+  const apiFetch = async () => {
     
+    const dataPopularMovies = await getPopularMovies();
+    const popularMovies = dataPopularMovies.results;
     
-    // movies.results.map((movie, index) => {
-    //   console.log('filme: ', index);
-    //   // console.log(movie);
-    //   console.log(movie['title']);
-    //   console.log('-----------------');
-    // })    
+    const dataGenres = await getGenres();
+    const genres = dataGenres.genres;
+    
+    const filtered = separateMoviesByGenre(popularMovies, genres);
+    const filteredMap = Object.entries(filtered).map(([genre, movies]) => ({ genre, movies }));
 
-
+    setPopularMovies(popularMovies);
+    setGenres(genres);    
+    setFilteredMovies(filteredMap);
   }
 
   useEffect(() => {
-    setPopularMovies();
+    apiFetch();
   }, [])
 
+  /*
+    Código comentado abaixo é a versão anterior do código acima.
+    É um código mais limpo, mas não é tão performático quanto o código acima.
+  */
+  
+  // const getApiPopularMovies = async () => {
+  //   const dataPopularMovies = await getPopularMovies();
+  //   const popularMovies = dataPopularMovies.results;
+  //   setPopularMovies(popularMovies);
+  // }
+
+  // const getApiGenres = async () => {
+  //   const dataGenres = await getGenres();
+  //   const genres = dataGenres.genres;
+  //   setGenres(genres);
+  // }
+
+  // useEffect(() => {
+  //   getApiPopularMovies();
+  //   getApiGenres();
+  // }, [])
+
+  // useEffect(() => {
+  //   const filtered = separateMoviesByGenre(popularMovies, genres);
+  //   const filteredMap = Object.entries(filtered).map(([genre, movies]) => ({ genre, movies }));
+  //   setFilteredMovies(filteredMap);
+  // }, [genres])
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {
+          filteredMovies?.map((filtered, index) => {
+            return(
+            <TouchableHighlight
+              onPress={handleFocus}
+              onBlur={handleBlur}
+              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+              key={index}
+            >
+                {/* <View style={ styles.card } */}
+                <View 
+                  ref={inputRef}
+                >
+                  <GenresContainer key={index} data={filtered}/>
+              </View>
 
-      
-      < CardContainer movies={movies}/>
-
-
-
-    </View>
+            </TouchableHighlight>
+            )
+            // return(
+            //   <>
+            //     <Text key={index}>{filtered.genre}</Text>
+            //     {/* <Text key={index}>{filtered.movies}</Text> */}
+            //   </>
+            //   // <GenresContainer key={index} genre={genre}/>
+            // )
+          })
+        }
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -67,46 +168,23 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
-  containerLogo: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'darkblue',
-  },
-  containerForm: {
+  scrollView: {
     flex: 1,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    backgroundColor: 'pink',
+    marginHorizontal: 20,
   },
-  title: {
-    fontWeight: 'bold',
-    marginTop: 28,
+  wrapper: {
     backgroundColor: 'white',
-    marginBottom: 12,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'grey',
   },
-  text: {
-    fontWeight: 'bold',
-    marginTop: 28,
-    backgroundColor: 'white',
-    marginBottom: 12,
-  },
-  buttonText: {
-    backgroundColor: 'white',
-  },
-  button: {
-    position: 'absolute',
-    backgroundColor: 'red',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+  wrapperFocused: {
+    borderColor: 'blue',
   },
 });

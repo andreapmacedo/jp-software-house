@@ -15,8 +15,6 @@ interface IProps {
 
 const CardContainer: React.FC<IProps> = ({movies}) =>{
 
-  console.log('movies: ', movies);
-
   
   const inputRef = useRef(null);
   const [focused, setFocused] = useState(false);
@@ -29,24 +27,22 @@ const CardContainer: React.FC<IProps> = ({movies}) =>{
   const handleBlur = () => {
     setFocused(false);
     inputRef.current.blur();
-    console.log(inputRef.current);
-    
-    
+    // console.log(inputRef.current);    
   };
-
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        { movies.results?.map((movie, index) => { 
+        {/* { movies.results?.map((movie, index) => {  */}
+        { movies?.map((movie, index) => { 
           return(
             <TouchableHighlight
               onPress={handleFocus}
               onBlur={handleBlur}
               style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+              key={index}
               >
               <View
-                key={index}
                 ref={inputRef}
                 >
                 <MainCard movie={movie} />

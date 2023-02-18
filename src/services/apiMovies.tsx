@@ -32,6 +32,13 @@ export async function getPopularMovies() {
   return response.data;
 }
 
+export async function getGenres() {
+  const response = await axios.get(`${baseURL}/genre/movie/list`, {
+    params: { api_key: apiKey },
+  });
+  return response.data;
+}
+
 export function listarFilmesPopulares(page: number) {
   // return http.get<Results>(this.baseURL + 'popular?' + this.apiKey + '&page=' + page)
   // return this.http.get<Results>(this.baseURL + 'popular?' + this.apiKey + '&page=' + page)
@@ -61,9 +68,9 @@ export function getProviders(idFilme: number) {
   // return this.http.get<Provider>(this.baseURL + idFilme + '/watch/providers?' + this.apiKey)
 }
 
-export function getGenres() {
-  // return this.http.get<Genre>('https://api.themoviedb.org/3/genre/movie/list?' + this.apiKey)
-}
+// export function getGenres() {
+//   // return this.http.get<Genre>('https://api.themoviedb.org/3/genre/movie/list?' + this.apiKey)
+// }
 
 export function discoverMovies(page: number) {
   // return this.http.get<Results>('https://api.themoviedb.org/3/discover/movie?' + this.apiKey + '&include_adult=false&sort_by=vote_count.desc&page=' + page)
