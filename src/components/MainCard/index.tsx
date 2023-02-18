@@ -14,14 +14,16 @@ interface IProps {
 const MainCard: React.FC<IProps> = ({movie}) =>{
     
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <>
       <Text style={{color: 'red'}}>{movie['title']}</Text>
       <Animatable.Image
         source={{ uri: `https://image.tmdb.org/t/p/w500${movie['poster_path']}` }}
         style={{ width: 200, height: 200 }}
         resizeMode="contain"
       />
-    </View>
+    {/* </View> */}
+    </>
   )  
 }
 
