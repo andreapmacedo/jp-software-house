@@ -17,15 +17,14 @@ const MainCard: React.FC<IProps> = ({movie}) =>{
   // console.log('movies: ', movie);
   
   return (
-    <>
+    <View style={styles.container}>
       <Text style={{color: 'red'}}>{movie['title']}</Text>
-      {/* <Text style={{color: 'red'}}>{movie['poster_path']}</Text> */}
       <Animatable.Image
         source={{ uri: `https://image.tmdb.org/t/p/w500${movie['poster_path']}` }}
         style={{ width: 200, height: 200 }}
         resizeMode="contain"
       />
-    </>
+    </View>
   )  
 }
 
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    backgroundColor: 'green',
   },
 });
 
