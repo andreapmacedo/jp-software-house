@@ -1,86 +1,132 @@
 import React, { useState, useEffect } from 'react'
-import { getGeneres, getPopularMovies } from '../../services/apiMovies';
+import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import CardContainer from '../../components/CardContainer';
 import GenresContainer from '../../components/GenresContainer';
 import { 
   View,
   StyleSheet,
   Text,
-  TouchableHighlight,
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
 
 import * as Animatable from 'react-native-animatable';
 
+interface Genre {
+  id: number;
+  name: string;
+}
+
+interface Movie {
+  id: number;
+  title: string;
+  genre_ids: number[];
+}
+
+interface MoviesByGenre {
+  [genre: string]: Movie[];
+}
+
 interface IProps {
 
 }
 
-// export default function Welcome() {
 const MainScreen: React.FC<IProps> = () =>{
   
-  const navigation = useNavigation<any>();
-
-  // const [movies, setMovies] = useState([]);
-  // const [selectedMovie, setSelectedMovie] = useState(null);
+  const navigation = useNavigation<any>();  
   const [popularMovies, setPopularMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  
+  function separateMoviesByGenre(movies: Movie[], genres: Genre[]): MoviesByGenre {
+    // Cria um objeto vazio para armazenar os filmes por gênero
+    const moviesByGenre: MoviesByGenre = {};
+  
+    // Inicializa as listas de filmes por gênero
+    genres.forEach((genre) => {
+      moviesByGenre[genre.name] = [];
+    });
+  
+    // Itera sobre a lista de filmes populares
+    movies.reduce((acc, movie) => {
+      // Itera sobre os gêneros do filme e adiciona o filme à lista correspondente
+      movie.genre_ids.forEach((genreId) => {
+        const genre = genres.find((g) => g.id === genreId);
+        if (genre) {
+          moviesByGenre[genre.name].push(movie);
+        }
+      });
+      return acc;
+    }, {});
 
-  const fetchPopularMovies = async () => {
-    const data = await getPopularMovies();
-    const popularMovies = data.results;
-    // console.log('popularMovies: ', popularMovies);
+    return moviesByGenre;
+  }
+
+  const apiFetch = async () => {
+    
+    const dataPopularMovies = await getPopularMovies();
+    const popularMovies = dataPopularMovies.results;
+    
+    const dataGenres = await getGenres();
+    const genres = dataGenres.genres;
+    
+    const filtered = separateMoviesByGenre(popularMovies, genres);
+    const filteredMap = Object.entries(filtered).map(([genre, movies]) => ({ genre, movies }));
+
     setPopularMovies(popularMovies);
-  }
-
-  const fetchGeneres = async () => {
-    const data = await getGeneres();
-    const genres = data.genres;
-    // console.log('generes: ', genres);
-    
-    setGenres(genres);
-  }
-
-  const HashChangeEvent = () => {
-    // console.log('teste');
-    // console.log(movies.results);
-    
-    
-    // movies.results.map((movie, index) => {
-    //   console.log('filme: ', index);
-    //   // console.log(movie);
-    //   console.log(movie['title']);
-    //   console.log('-----------------');
-    // })    
-
-
+    setGenres(genres);    
+    setFilteredMovies(filteredMap);
   }
 
   useEffect(() => {
-    fetchPopularMovies();
-    fetchGeneres();
+    apiFetch();
   }, [])
 
+  /*
+    Código comentado abaixo é a versão anterior do código acima.
+    É um código mais limpo, mas não é tão performático quanto o código acima.
+  */
+  
+  // const getApiPopularMovies = async () => {
+  //   const dataPopularMovies = await getPopularMovies();
+  //   const popularMovies = dataPopularMovies.results;
+  //   setPopularMovies(popularMovies);
+  // }
+
+  // const getApiGenres = async () => {
+  //   const dataGenres = await getGenres();
+  //   const genres = dataGenres.genres;
+  //   setGenres(genres);
+  // }
+
+  // useEffect(() => {
+  //   getApiPopularMovies();
+  //   getApiGenres();
+  // }, [])
+
+  // useEffect(() => {
+  //   const filtered = separateMoviesByGenre(popularMovies, genres);
+  //   const filteredMap = Object.entries(filtered).map(([genre, movies]) => ({ genre, movies }));
+  //   setFilteredMovies(filteredMap);
+  // }, [genres])
 
   return (
     <View style={styles.container}>
     
-      {/* {genres?.map(({name}, index) => { */}
-      {/* {genres?.map((genre, index) => {
-        return(
-          <Text key={index}>{genre.name}</Text>
-          // <GenresContainer key={index} genre={genre}/>
-        )
-      })
-      } */}
-
-
-      <GenresContainer genres={genres}/>
-      {/* <CardContainer movies={popularMovies}/> */}
-
-
-
+      {
+        filteredMovies?.map((filtered, index) => {        
+          return(
+            <GenresContainer key={index} data={filtered}/>
+          )
+          // return(
+          //   <>
+          //     <Text key={index}>{filtered.genre}</Text>
+          //     {/* <Text key={index}>{filtered.movies}</Text> */}
+          //   </>
+          //   // <GenresContainer key={index} genre={genre}/>
+          // )
+        })
+      }
     </View>
   )
 }

@@ -13,15 +13,26 @@ interface IProps {
 
 }
 
-const GenresContainer: React.FC<IProps> = ({genres}) =>{
+// const GenresContainer: React.FC<IProps> = ({genres, movies}) =>{
+const GenresContainer: React.FC<IProps> = ({data}) =>{
 
-  console.log('name: ', genres);
+  // console.log('name: ', genres);
+  // console.log('movies: ', movies);
+  // console.log('data: ', data);
+  // console.log('data: ', data);
+  // const [genres, setGenres] = useState(data['genres']);
+
+  const { genre, movies } = data;
+
+  // console.log('results: ', genre);
+  console.log('results: ', movies);
+  
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         
-        { genres?.map(({name}, index) => { 
+        { movies?.map(({title}, index) => { 
           return(
             <TouchableHighlight
               // onPress={handleFocus}
@@ -32,7 +43,7 @@ const GenresContainer: React.FC<IProps> = ({genres}) =>{
               <View
                 // ref={inputRef}
                 >
-                  <Text key={index}>{name}</Text>
+                  <Text>{title}</Text>
                 
               </View>
             </TouchableHighlight>

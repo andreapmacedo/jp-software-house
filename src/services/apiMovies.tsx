@@ -32,7 +32,7 @@ export async function getPopularMovies() {
   return response.data;
 }
 
-export async function getGeneres() {
+export async function getGenres() {
   const response = await axios.get(`${baseURL}/genre/movie/list`, {
     params: { api_key: apiKey },
   });
