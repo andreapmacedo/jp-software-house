@@ -32,7 +32,7 @@ const Welcome: React.FC<IProps> = () =>{
       <View style={styles.containerLogo} >
         <Animatable.Image
           animation="flipInY"
-          source={require('../../assets/logo-b.png')}
+          source={require('../../assets/logo-d.png')}
           style={{ width: 200, height: 200 }}
           resizeMode="contain" 
         />
