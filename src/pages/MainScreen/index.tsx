@@ -129,7 +129,9 @@ const MainScreen: React.FC<IProps> = () =>{
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+      >
         {
           filteredMovies?.map((filtered, index) => {
             return(
@@ -140,11 +142,11 @@ const MainScreen: React.FC<IProps> = () =>{
               key={index}
             >
                 {/* <View style={ styles.card } */}
-                <View 
+                <SafeAreaView 
                   ref={inputRef}
                 >
                   <GenresContainer key={index} data={filtered}/>
-              </View>
+              </SafeAreaView>
 
             </TouchableHighlight>
             )
@@ -174,6 +176,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    
     // flexDirection: 'row',
     // flexWrap: 'wrap',
     backgroundColor: 'pink',

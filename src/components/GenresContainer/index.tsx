@@ -43,7 +43,10 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
     <>
     
      <SafeAreaView style={styles.container}>
-    
+     <ScrollView
+        style={styles.scrollView}
+        horizontal={true}
+      >
         
         {/* { movies?.map(({title}, index) => {  */}
         { movies?.map((movie, index) => { 
@@ -62,7 +65,7 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
             </TouchableHighlight>
           )
         })}
-    
+      </ScrollView>
     </SafeAreaView>
     </>
   )  
