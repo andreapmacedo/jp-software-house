@@ -1,12 +1,9 @@
 import React, { useRef, useState } from 'react'
 import MainCard from '../MainCard';
-// import CardContainer from '../../components/CardContainer';
 import {
-  SafeAreaView,
   ScrollView, 
   View,
   StyleSheet,
-  Text,
   TouchableHighlight,
 } from 'react-native'
 
@@ -18,11 +15,7 @@ interface IProps {
 const GenresContainer: React.FC<IProps> = ({data}) =>{
 
   const { genre, movies } = data;
-
-  // console.log('results: ', genre);
-  console.log('results: ', movies);
-
-  
+  // console.log('results: ', movies);
   const inputRef = useRef(null);
   const [focused, setFocused] = useState(false);
 
@@ -53,7 +46,7 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
               style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
               key={index}
               >
-              <View style={ styles.cardContainer }
+              <View style={ styles.card }
                 ref={inputRef}
                 >
                 <MainCard movie={movie} />
@@ -63,47 +56,15 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
         })}
       </ScrollView>
     </>
-  )  
-  // return (
-  //   <SafeAreaView style={styles.container}>
-  //     <ScrollView style={styles.scrollView}>
-        
-  //       { movies?.map(({title}, index) => { 
-  //         return(
-  //           <TouchableHighlight
-  //             // onPress={handleFocus}
-  //             // onBlur={handleBlur}
-  //             // style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-  //             key={index}
-  //             >
-  //             <View
-  //               // ref={inputRef}
-  //               >
-  //                 {/* <Text>{title}</Text> */}
-  //                 <CardContainer movies={movies} />
-                
-  //             </View>
-  //           </TouchableHighlight>
-  //         )
-  //       })}
-  //     </ScrollView>
-  //   </SafeAreaView>
-  // )  
+  )   
 }
 
 export default GenresContainer;
 
 const styles = StyleSheet.create({
-  
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
-    backgroundColor: 'purple',
-  },
   wrapper: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: 'red',
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
@@ -111,16 +72,15 @@ const styles = StyleSheet.create({
   },
   wrapperFocused: {
     borderColor: 'blue',
+    backgroundColor: 'white',
 
   },
   scrollView: {
-    // display: 'flex',
-    // flex: 2,
     flex: 1,
     backgroundColor: 'green',
     marginHorizontal: 20,
   },
-  cardContainer: {
+  card: {
     backgroundColor: 'yellow',
     width: 220,
     borderRadius: 8,

@@ -64,10 +64,6 @@ const styles = StyleSheet.create({
   },
   wrapperFocused: {
     borderColor: 'blue',
-  },
-  scrollView: {
-    backgroundColor: 'green',
-    marginHorizontal: 20,
-  },
+  }
 });
 

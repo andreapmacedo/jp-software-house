@@ -85,7 +85,10 @@ const MainScreen: React.FC<IProps> = () =>{
           filteredMovies?.map((filtered, index) => {
             return(
               filtered.movies.length > 0 &&
-              <View key={index}>
+              <View
+                key={index}
+                style={styles.sectionContainer}
+              >
                 <Text>{filtered.genre}</Text>
                 <GenresContainer data={filtered}/>
               </View>
@@ -104,11 +107,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    // gap: 10,
   },
   scrollView: {
     flex: 1,
     backgroundColor: 'purple',
-    marginHorizontal: 20,
-  }
+    
+    // marginHorizontal: 20,
+  },
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    backgroundColor: 'aqua',
+  },
 });
