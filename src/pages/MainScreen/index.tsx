@@ -5,6 +5,7 @@ import GenresContainer from '../../components/GenresContainer';
 import {
   SafeAreaView, 
   View,
+  Text,
   StyleSheet,
   ScrollView,
   TouchableHighlight
@@ -134,22 +135,38 @@ const MainScreen: React.FC<IProps> = () =>{
       >
         {
           filteredMovies?.map((filtered, index) => {
-            return(
-            <TouchableHighlight
-              onPress={handleFocus}
-              onBlur={handleBlur}
-              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-              key={index}
-            >
-                {/* <View style={ styles.card } */}
-                <SafeAreaView 
-                  ref={inputRef}
-                >
-                  <GenresContainer key={index} data={filtered}/>
-              </SafeAreaView>
+            // return(
+            // <TouchableHighlight
+            //   onPress={handleFocus}
+            //   onBlur={handleBlur}
+            //   style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+            //   key={index}
+            // >
+            //     {/* <View style={ styles.card } */}
+            //     <SafeAreaView 
+            //       ref={inputRef}
+            //     >
+            //       <GenresContainer key={index} data={filtered}/>
+            //   </SafeAreaView>
 
-            </TouchableHighlight>
-            )
+            // </TouchableHighlight>
+            // )
+            // return(
+            // <TouchableHighlight
+            //   onPress={handleFocus}
+            //   onBlur={handleBlur}
+            //   style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+            //   key={index}
+            // >
+            //     {/* <View style={ styles.card } */}
+            //     <SafeAreaView 
+            //       ref={inputRef}
+            //     >
+            //       <GenresContainer key={index} data={filtered}/>
+            //   </SafeAreaView>
+
+            // </TouchableHighlight>
+            // )
             // return(
             //   <>
             //     <Text key={index}>{filtered.genre}</Text>
@@ -157,6 +174,13 @@ const MainScreen: React.FC<IProps> = () =>{
             //   </>
             //   // <GenresContainer key={index} genre={genre}/>
             // )
+            return(
+              <View key={index}>
+                <Text>{filtered.genre}</Text>
+                {/* <Text key={index}>{filtered.movies}</Text> */}
+                <GenresContainer data={filtered}/>
+              </View>
+            )
           })
         }
       </ScrollView>
