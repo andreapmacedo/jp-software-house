@@ -42,7 +42,7 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
   return (
     <>
     
-     <SafeAreaView style={styles.container}>
+     {/* <SafeAreaView style={styles.container}> */}
      <ScrollView
         style={styles.scrollView}
         horizontal={true}
@@ -66,7 +66,7 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
           )
         })}
       </ScrollView>
-    </SafeAreaView>
+    {/* </SafeAreaView> */}
     </>
   )  
   // return (
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
+    backgroundColor: 'pink',
   },
   wrapper: {
     backgroundColor: 'white',
