@@ -111,17 +111,11 @@ const styles = StyleSheet.create({
   },
   vScrollView: {
     flex: 1,
-    // backgroundColor: 'purple',
     backgroundColor: 'rgb(23, 41, 60)',
-    
-    // marginHorizontal: 20,
   },
   sectionContainer: {
     marginTop: 32,
     color: 'white',
-    // paddingHorizontal: 24,
-    // backgroundColor: 'aqua',
-    // backgroundColor: 'rgb(23, 41, 60)',
   },
   title: {
     fontSize: 30,

@@ -94,7 +94,7 @@ export default function SignIn() {
           style={styles.buttonRegister}
           onPress={handleLogin}  
         >
-          <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
+          <Text style={styles.registerText}>Entrar</Text>
         </TouchableHighlight>
 
       </Animatable.View>
@@ -105,7 +105,8 @@ export default function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    backgroundColor: 'rgb(23, 41, 60)',
+    color: 'white',
   },
   containerHeader: {
     flex: 1,
@@ -118,15 +119,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    width: '90%',
+    // width: '90%',
     height: 50,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     borderRadius: 10,
     marginBottom: 10,
     padding: 10,
   },
   button: {
-    width: '90%',
+    // width: '90%',
     height: 50,
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -135,35 +136,41 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: 'darkblue',
+    color: 'black',
   },
   registerText: {
     fontSize: 20,
-    color: 'darkblue',
+    color: 'black',
   },
   buttonRegister: {
-    position: 'absolute',
-    backgroundColor: 'red',
+    // position: 'absolute',
+    // backgroundColor: 'red',
+    borderColor: 'red',
+    color: 'red',
+    borderWidth: 1,
     borderRadius: 50,
     paddingVertical: 8,
     width: '60%',
     alignSelf: 'center',
-    bottom: '15%',
+    // bottom: '15%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   message: {
     fontSize: 20,
-    color: 'darkblue',
+    color: 'black',
   },
   wrapper: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: 'yellow',
+    width: '50%',
+    marginBottom: 16,
+    
   },
   wrapperFocused: {
-    borderColor: 'blue',
+    borderColor: 'green',
   },
 });
