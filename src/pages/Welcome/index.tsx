@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 import { 
   View,
   StyleSheet,
   Text,
   TouchableHighlight,
 } from 'react-native'
-
-import { useNavigation } from '@react-navigation/native';
-
-import * as Animatable from 'react-native-animatable';
 
 interface IProps {
 
@@ -18,79 +16,81 @@ const Welcome: React.FC<IProps> = () =>{
   
   const navigation = useNavigation<any>();
 
+  // Para redirecionamento automático
+  // useEffect(() => {
+  //   const redirectTimeout = setTimeout(() => {
+  //     navigation.navigate('SignIn'); // redireciona para outra rota
+  //   }, 1000); // 5 segundos
+
+  //   return () => clearTimeout(redirectTimeout); // limpa o timeout ao desmontar o componente
+  // },[]);
+
   return (
     <View style={styles.container}>
+      
+
       <View style={styles.containerLogo} >
         <Animatable.Image
           animation="flipInY"
-          source={require('../../assets/logo.png')}
+          source={require('../../assets/logo-b.png')}
           style={{ width: 200, height: 200 }}
           resizeMode="contain" 
         />
+        <Animatable.Text
+          animation="fadeInUp"
+          style={styles.title}
+          >
+            SOFTWARE HOUSE
+        </Animatable.Text>
       </View>
-
-      <View style={styles.containerForm}>
+      <View >
         <TouchableHighlight
-          style={styles.button}
+          style={styles.buttonRegister}
           onPress={() => navigation.navigate('SignIn')}
           hasTVPreferredFocus
           tvParallaxProperties={{ magnification: 1.5 }}
+          underlayColor={'rgba(29, 70, 114, 0.836)'}
         >
-          <Text style={styles.buttonText}>Button3</Text>
+          <Text style={styles.buttonRegisterText}>Entrar</Text>
         </TouchableHighlight>
-
       </View>
-
     </View>
   )
 }
 
-export default Welcome;
-
 const styles = StyleSheet.create({
-  
   container: {
     flex: 1,
-    backgroundColor: 'darkblue',
+    backgroundColor: 'rgb(23, 41, 60)',
   },
   containerLogo: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'darkblue',
+    backgroundColor: 'rgb(23, 41, 60)',
   },
-  containerForm: {
-    flex: 1,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+  buttonRegisterText: {
+    fontSize: 20,
+    color: '#ededed',
+    textDecorationLine: 'underline',
   },
   title: {
-    fontWeight: 'bold',
-    marginTop: 28,
-    backgroundColor: 'white',
-    marginBottom: 12,
+    fontSize: 30,
+    color: '#ededed',
+    // textDecorationLine: 'underline',
   },
-  text: {
-    fontWeight: 'bold',
-    marginTop: 28,
-    backgroundColor: 'white',
-    marginBottom: 12,
-  },
-  buttonText: {
-    backgroundColor: 'white',
-  },
-  button: {
-    position: 'absolute',
-    backgroundColor: 'red',
+  buttonRegister: {
+    padding: 8,
+    margin: 48,
+    borderColor: 'green',
+    color: 'red',
     borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
+    width: '50%',
     alignSelf: 'center',
-    bottom: '15%',
+    bottom: '12%',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
+
+export default Welcome;

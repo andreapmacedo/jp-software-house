@@ -1,12 +1,9 @@
 import React, { useRef, useState } from 'react'
 import MainCard from '../MainCard';
-// import CardContainer from '../../components/CardContainer';
 import {
-  SafeAreaView,
   ScrollView, 
   View,
   StyleSheet,
-  Text,
   TouchableHighlight,
 } from 'react-native'
 
@@ -14,124 +11,106 @@ interface IProps {
 
 }
 
-// const GenresContainer: React.FC<IProps> = ({genres, movies}) =>{
 const GenresContainer: React.FC<IProps> = ({data}) =>{
 
   const { genre, movies } = data;
-
-  // console.log('results: ', genre);
-  console.log('results: ', movies);
-
-  
-  const inputRef = useRef(null);
+  const ref = useRef(null);
   const [focused, setFocused] = useState(false);
+  const [ isPress, setIsPress ] = useState(false);
+   
 
   const handleFocus = () => {
     setFocused(true);
-    inputRef.current.focus();
+    ref.current.focus();
   };
 
   const handleBlur = () => {
     setFocused(false);
-    inputRef.current.blur();
-    // console.log(inputRef.current);    
+    ref.current.blur();
+    // console.log(ref.current);    
   };
 
+  const touchProps = {
+    activeOpacity: 1,
+    underlayColor: 'blue',
+    style: isPress ? styles.wrapperFocused : styles.wrapper,
+    onHideUnderlay: () => setIsPress(false),
+    onShowUnderlay: () => setIsPress(true),
+    onPress: () => setIsPress(false),
+    // onBlur: () => setIsPress(true)
+  };
 
+  const getCardStyle = () => {
+    return isPress ? styles.smallImage : styles.largeImage
+  }
+
+  const getContainerStyle = () => {
+    return styles.card
+  }
 
   return (
-    <>
-     <ScrollView
-        style={styles.scrollView}
-        horizontal={true}
-      >
-        { movies?.map((movie, index) => { 
-          return(
-            <TouchableHighlight
-              onPress={handleFocus}
-              onBlur={handleBlur}
-              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-              key={index}
-              >
-              <View style={ styles.cardContainer }
-                ref={inputRef}
-                >
-                <MainCard movie={movie} />
-              </View>
-            </TouchableHighlight>
-          )
-        })}
-      </ScrollView>
-    </>
-  )  
-  // return (
-  //   <SafeAreaView style={styles.container}>
-  //     <ScrollView style={styles.scrollView}>
-        
-  //       { movies?.map(({title}, index) => { 
-  //         return(
-  //           <TouchableHighlight
-  //             // onPress={handleFocus}
-  //             // onBlur={handleBlur}
-  //             // style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-  //             key={index}
-  //             >
-  //             <View
-  //               // ref={inputRef}
-  //               >
-  //                 {/* <Text>{title}</Text> */}
-  //                 <CardContainer movies={movies} />
-                
-  //             </View>
-  //           </TouchableHighlight>
-  //         )
-  //       })}
-  //     </ScrollView>
-  //   </SafeAreaView>
-  // )  
+    <ScrollView
+      style={styles.hScrollView}
+      horizontal={true}
+    >
+      { movies?.map((movie, index) => { 
+        return(
+          <TouchableHighlight
+            {...touchProps}
+            key={index}
+          >
+            <View style={ styles.card }>
+              <MainCard movie={movie} style={ getCardStyle() }/>
+            </View>
+          </TouchableHighlight>
+        )
+      })}
+    </ScrollView>
+  )   
 }
 
 export default GenresContainer;
 
 const styles = StyleSheet.create({
-  
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
-    backgroundColor: 'purple',
-  },
   wrapper: {
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'grey',
+    flex : 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    margin: 4,
+    padding: 4,
+    width: 200,
   },
   wrapperFocused: {
-    borderColor: 'blue',
-
+    flex : 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(29, 70, 114, 0.836)',
+    borderRadius: 4,
+    margin: 4,
+    padding: 4,
+    width: 200,
   },
-  scrollView: {
-    // display: 'flex',
-    // flex: 2,
-    flex: 1,
-    backgroundColor: 'green',
-    marginHorizontal: 20,
+  hScrollView: {
+    backgroundColor: 'rgb(23, 41, 60)',
+    marginLeft: 16,
   },
-  cardContainer: {
-    backgroundColor: 'yellow',
-    width: 220,
-    borderRadius: 8,
-    elevation: 3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowColor: '#333',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    marginHorizontal: 4,
-    marginVertical: 6,
-    padding: 10,
+  card: {
+    alignItems: 'center',
+    flex : 1,
+    justifyContent: 'center',
+    borderRadius: 4,
+    margin: 4,
+    padding: 4,
+    width: 200,  
+  },
+  smallImage: {
+    width: 200,
+    height: 200,
+  },
+  largeImage: {
+    width: 200,
+    height: 200,
   },
 });
 

@@ -1,48 +1,40 @@
-
-import { 
-  View,
-  StyleSheet,
-  Text,
-} from 'react-native'
-
+import { StyleSheet } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 
 interface IProps {
 
 }
 
-const MainCard: React.FC<IProps> = ({movie}) =>{
+const MainCard: React.FC<IProps> = ({movie, style}) =>{
     
   return (
-    // <View style={styles.container}>
     <>
-      <Text style={{color: 'red'}}>{movie['title']}</Text>
       <Animatable.Image
+        animation="flipInY"
         source={{ uri: `https://image.tmdb.org/t/p/w500${movie['poster_path']}` }}
-        style={{ width: 200, height: 200 }}
+        style={style}
         resizeMode="contain"
       />
-    {/* </View> */}
+      <Animatable.Text
+        animation="flipInY"
+        style={styles.title}
+      >
+        {movie['title']}
+      </Animatable.Text>
     </>
   )  
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: 'yellow',
-    width: 200,
-    backgroundColor: 'gray',
-    borderRadius: 8,
-    elevation: 3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowColor: '#333',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    marginHorizontal: 4,
-    marginVertical: 6,
-    padding: 10,
-  },
-});
+  title: {
+    fontSize: 10,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 5,
+    maxWidth: 100,
+    height: 40,
+  }
+});  
 
 export default MainCard;

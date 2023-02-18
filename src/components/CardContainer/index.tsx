@@ -9,7 +9,7 @@ import {
 interface IProps {
 
 }
-
+// Este componente não está sendo usado no projeto.
 const CardContainer: React.FC<IProps> = ({movies}) =>{
 
   const inputRef = useRef(null);
@@ -64,10 +64,6 @@ const styles = StyleSheet.create({
   },
   wrapperFocused: {
     borderColor: 'blue',
-  },
-  scrollView: {
-    backgroundColor: 'green',
-    marginHorizontal: 20,
-  },
+  }
 });
 

@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import GenresContainer from '../../components/GenresContainer';
-import {
-  SafeAreaView, 
+import { 
   View,
   Text,
   StyleSheet,
   ScrollView,
 } from 'react-native'
-
-import * as Animatable from 'react-native-animatable';
 
 interface Genre {
   id: number;
@@ -77,23 +74,30 @@ const MainScreen: React.FC<IProps> = () =>{
   }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
-        style={styles.scrollView}
+        style={styles.vScrollView}
       >
         {
           filteredMovies?.map((filtered, index) => {
             return(
               filtered.movies.length > 0 &&
-              <View key={index}>
-                <Text>{filtered.genre}</Text>
+              <View
+                key={index}
+                style={styles.sectionContainer}
+              >
+                <Text
+                  style={styles.title}
+                >
+                  {filtered.genre}
+                </Text>
                 <GenresContainer data={filtered}/>
               </View>
             )
           })
         }
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -104,11 +108,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
   },
-  scrollView: {
+  vScrollView: {
     flex: 1,
-    backgroundColor: 'purple',
-    marginHorizontal: 20,
-  }
+    backgroundColor: 'rgb(23, 41, 60)',
+  },
+  sectionContainer: {
+    marginTop: 32,
+    color: 'white',
+  },
+  title: {
+    fontSize: 30,
+    color: '#fff',
+    fontWeight: 'bold',
+    marginLeft: 20,
+    marginBottom: 10,
+  },  
 });

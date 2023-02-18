@@ -4,7 +4,6 @@ import Welcome from "../pages/Welcome";
 import SignIn from "../pages/SignIn";
 import MainScreen from "../pages/MainScreen";
 
-// const Stack = createNativeStackNavigator();
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export default function Routes() {
