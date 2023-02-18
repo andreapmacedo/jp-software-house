@@ -16,38 +16,48 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
 
   const { genre, movies } = data;
   // console.log('results: ', movies);
-  const inputRef = useRef(null);
+  const ref = useRef(null);
   const [focused, setFocused] = useState(false);
+  const [presed, setPresed] = useState(false);
+  const [ isPress, setIsPress ] = useState(false);
 
   const handleFocus = () => {
     setFocused(true);
-    inputRef.current.focus();
+    ref.current.focus();
   };
 
   const handleBlur = () => {
     setFocused(false);
-    inputRef.current.blur();
-    // console.log(inputRef.current);    
+    ref.current.blur();
+    // console.log(ref.current);    
   };
 
+  const handleFocusNext = () => {
+    setPresed(true);
+  };
 
+  const touchProps = {
+    activeOpacity: 1,
+    underlayColor: 'blue',                               
+    style: isPress ? styles.wrapperFocused : styles.wrapper,
+    onHideUnderlay: () => setIsPress(false),
+    onShowUnderlay: () => setIsPress(true),
+    onPress: () => setIsPress(false),
+    // onBlur: () => setIsPress(true)
+  };
 
   return (
     <>
      <ScrollView
-        style={styles.scrollView}
+        style={styles.hScrollView}
         horizontal={true}
       >
         { movies?.map((movie, index) => { 
           return(
-            <TouchableHighlight
-              onPress={handleFocus}
-              onBlur={handleBlur}
-              style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
-              key={index}
-              >
-              <View style={ styles.card }
-                ref={inputRef}
+            <TouchableHighlight {...touchProps}
+            >
+            <View style={ styles.card }
+                key={index}
                 >
                 <MainCard movie={movie} />
               </View>
@@ -57,6 +67,31 @@ const GenresContainer: React.FC<IProps> = ({data}) =>{
       </ScrollView>
     </>
   )   
+  // return (
+  //   <>
+  //    <ScrollView
+  //       style={styles.hScrollView}
+  //       horizontal={true}
+  //     >
+  //       { movies?.map((movie, index) => { 
+  //         return(
+  //           <TouchableHighlight
+  //             onPress={handleFocus}
+  //             onBlur={handleBlur}
+  //             style={[styles.wrapper, focused ? styles.wrapperFocused : null]}
+  //             key={index}
+  //             ref={ref}
+  //             >
+  //             <View style={ styles.card }
+  //               >
+  //               <MainCard movie={movie} />
+  //             </View>
+  //           </TouchableHighlight>
+  //         )
+  //       })}
+  //     </ScrollView>
+  //   </>
+  // )   
 }
 
 export default GenresContainer;
@@ -71,14 +106,12 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
   },
   wrapperFocused: {
-    borderColor: 'blue',
-    backgroundColor: 'white',
-
+    borderColor: 'pink',
+    backgroundColor: 'pink',
   },
-  scrollView: {
-    flex: 1,
+  hScrollView: {
+    // flex: 1,
     backgroundColor: 'green',
-    marginHorizontal: 20,
   },
   card: {
     backgroundColor: 'yellow',

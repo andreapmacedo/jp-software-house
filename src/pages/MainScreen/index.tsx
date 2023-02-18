@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { getGenres, getPopularMovies } from '../../services/apiMovies';
 import GenresContainer from '../../components/GenresContainer';
-import {
-  SafeAreaView, 
+import { 
   View,
   Text,
   StyleSheet,
@@ -77,9 +76,9 @@ const MainScreen: React.FC<IProps> = () =>{
   }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
-        style={styles.scrollView}
+        style={styles.vScrollView}
       >
         {
           filteredMovies?.map((filtered, index) => {
@@ -96,7 +95,7 @@ const MainScreen: React.FC<IProps> = () =>{
           })
         }
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -107,9 +106,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    // gap: 10,
   },
-  scrollView: {
+  vScrollView: {
     flex: 1,
     backgroundColor: 'purple',
     
